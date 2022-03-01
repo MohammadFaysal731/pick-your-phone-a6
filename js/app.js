@@ -31,7 +31,7 @@ const loadPhones = () => {
             .then(data => displayPhones(data.data))
         // clear error masseges after api load 
         errorMasseges.textContent = '';
-        // clear phone detail and when new phone 
+        // clear phone detail and when search new phone 
         phoneDeatil.textContent = '';
     }
 };
