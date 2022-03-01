@@ -1,6 +1,9 @@
 // errorMasseges for many thinks like. number, nagative number, emty string , no result found.
 const errorMasseges = document.getElementById('error-masseges');
-const cardsContainer = document.getElementById('cards');
+// cards  cosntainer 
+const phonesContainer = document.getElementById('cards');
+// singal phone details 
+const cardDeatil = document.getElementById('card-deatil');
 const loadPhones = () => {
     const searchBox = document.getElementById('search-box');
     const searchTex = searchBox.value;
@@ -8,11 +11,13 @@ const loadPhones = () => {
     // console.log(searchTex)
     if (searchTex === '') {
         errorMasseges.innerText = 'You can not search phone by balnck';
-        cardsContainer.textContent = '';
+        phonesContainer.textContent = '';
+        cardDeatil.textContent = '';
     }
     else if (searchTex >= 0 || searchTex <= 0) {
         errorMasseges.innerText = 'You can search phones by names not numbres';
-        cardsContainer.textContent = '';
+        phonesContainer.textContent = '';
+        cardDeatil.textContent = '';
     }
     else {
         // loadPhones api 
@@ -28,10 +33,10 @@ const displayPhones = phones => {
     // console.log(phones)
     if (phones.length === 0) {
         errorMasseges.innerText = 'Sorroy no phone found';
-        cardsContainer.textContent = '';
+        phonesContainer.textContent = '';
     }
     else {
-        cardsContainer.textContent = '';
+        phonesContainer.textContent = '';
         phones.forEach(phone => {
             // console.log(phone)
             const div = document.createElement('div');
@@ -48,10 +53,11 @@ const displayPhones = phones => {
              </div>
          </div>
          `;
-            cardsContainer.appendChild(div);
+            phonesContainer.appendChild(div);
         });
     }
 };
+
 const loadPhoneDetais = phoneId => {
     console.log(phoneId);
     const url = (`https://openapi.programming-hero.com/api/phone/${phoneId}`);
@@ -60,8 +66,7 @@ const loadPhoneDetais = phoneId => {
         .then(data => displayPhoneDetais(data.data))
 };
 const displayPhoneDetais = phone => {
-    console.log(phone)
-    const cardDeatil = document.getElementById('card-deatil');
+    // console.log(phone)
     cardDeatil.textContent = '';
     const div = document.createElement('div');
     div.innerHTML = `
@@ -70,10 +75,18 @@ const displayPhoneDetais = phone => {
       <div class="card-body">
       <h4 class="card-title">${phone.name}</h4>
       <h5 class="card-text">${phone.releaseDate ? phone.releaseDate : 'No releasDate found'}</h5>
-      <p>${phone.mainFeatures.chipSet}</p>
-      <p>${phone.mainFeatures.displaySize}</p>
-      <p>${phone.mainFeatures.memory}</p>
-      <p>${phone.mainFeatures.storage}</p>
+      <h6>Main Features:</h6>
+      <p>Chipset: ${phone.mainFeatures.chipSet}</p>
+      <p>Display Size: ${phone.mainFeatures.displaySize}</p>
+      <p>Memory: ${phone.mainFeatures.memory}</p>
+      <p>Storag: ${phone.mainFeatures.storage}</p>
+      <h6>Sensors:</h6>
+      <p>${phone.mainFeatures.sensors[0]}</p>
+      <p>${phone.mainFeatures.sensors[1]}</p>
+      <p>${phone.mainFeatures.sensors[2]}</p>
+      <p>${phone.mainFeatures.sensors[3]}</p>
+      <p>${phone.mainFeatures.sensors[4]}</p>
+      <p>${phone.mainFeatures.sensors[5]}</p>
     </div>
     `;
     cardDeatil.appendChild(div);
