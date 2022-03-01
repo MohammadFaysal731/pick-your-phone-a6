@@ -3,7 +3,7 @@ const errorMasseges = document.getElementById('error-masseges');
 // cards  cosntainer 
 const phonesContainer = document.getElementById('cards');
 // singal phone details 
-const cardDeatil = document.getElementById('card-deatil');
+const phoneDeatil = document.getElementById('card-deatil');
 const loadPhones = () => {
     const searchBox = document.getElementById('search-box');
     const searchTex = searchBox.value;
@@ -11,13 +11,17 @@ const loadPhones = () => {
     // console.log(searchTex)
     if (searchTex === '') {
         errorMasseges.innerText = 'You can not search phone by balnck';
+        // clear phones container when search emty
         phonesContainer.textContent = '';
-        cardDeatil.textContent = '';
+        // clear phone detail when search emty 
+        phoneDeatil.textContent = '';
     }
     else if (searchTex >= 0 || searchTex <= 0) {
         errorMasseges.innerText = 'You can search phones by names not numbres';
+        // clear phone container whern search positive or nagative number 
         phonesContainer.textContent = '';
-        cardDeatil.textContent = '';
+        // clear phone detail when search positiver or nagative number 
+        phoneDeatil.textContent = '';
     }
     else {
         // loadPhones api 
@@ -25,8 +29,10 @@ const loadPhones = () => {
         fetch(url)
             .then(res => res.json())
             .then(data => displayPhones(data.data))
+        // clear error masseges after api load 
         errorMasseges.textContent = '';
-        cardDeatil.textContent = '';
+        // clear phone detail and when new phone 
+        phoneDeatil.textContent = '';
     }
 };
 // display phones 
@@ -68,7 +74,7 @@ const loadPhoneDetais = phoneId => {
 };
 const displayPhoneDetais = phone => {
     console.log(phone)
-    cardDeatil.textContent = '';
+    phoneDeatil.textContent = '';
     const div = document.createElement('div');
     div.innerHTML = `
     <div class="card rounded-3 p-3">
@@ -97,5 +103,5 @@ const displayPhoneDetais = phone => {
       <p>WLAN: ${phone.others?.WLAN}</p>
     </div> 
     `;
-    cardDeatil.appendChild(div);
+    phoneDeatil.appendChild(div);
 };
