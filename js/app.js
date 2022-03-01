@@ -26,6 +26,7 @@ const loadPhones = () => {
             .then(res => res.json())
             .then(data => displayPhones(data.data))
         errorMasseges.textContent = '';
+        cardDeatil.textContent = '';
     }
 };
 // display phones 
@@ -49,7 +50,7 @@ const displayPhones = phones => {
              <div class="card-body">
                   <h5 class="card-title">${phone.phone_name}</h5>
                   <p class="card-text">${phone.brand}</p>
-                 <a  onclick ="loadPhoneDetais('${phone.slug}')"href="#" class="btn btn-primary">Details</a>
+                 <a  onclick ="loadPhoneDetais('${phone.slug}')"href="#" class="btn btn-success px-5">Details</a>
              </div>
          </div>
          `;
@@ -66,28 +67,35 @@ const loadPhoneDetais = phoneId => {
         .then(data => displayPhoneDetais(data.data))
 };
 const displayPhoneDetais = phone => {
-    // console.log(phone)
+    console.log(phone)
     cardDeatil.textContent = '';
     const div = document.createElement('div');
     div.innerHTML = `
     <div class="card rounded-3 p-3">
       <img src="${phone.image}" class="card-img-top" alt="...">
       <div class="card-body">
-      <h4 class="card-title">${phone.name}</h4>
-      <h5 class="card-text">${phone.releaseDate ? phone.releaseDate : 'No releasDate found'}</h5>
+      <h3 class="card-title">${phone.name}</h3>
+      <h4 class="card-text">${phone.releaseDate ? phone.releaseDate : 'No releasDate found'}</h4>
       <h6>Main Features:</h6>
       <p>Chipset: ${phone.mainFeatures.chipSet}</p>
       <p>Display Size: ${phone.mainFeatures.displaySize}</p>
       <p>Memory: ${phone.mainFeatures.memory}</p>
       <p>Storag: ${phone.mainFeatures.storage}</p>
-      <h6>Sensors:</h6>
+      <h5>Sensors:</h5>
       <p>${phone.mainFeatures.sensors[0]}</p>
       <p>${phone.mainFeatures.sensors[1]}</p>
       <p>${phone.mainFeatures.sensors[2]}</p>
       <p>${phone.mainFeatures.sensors[3]}</p>
       <p>${phone.mainFeatures.sensors[4]}</p>
       <p>${phone.mainFeatures.sensors[5]}</p>
-    </div>
+      <h5>Others:</h5>
+      <p>Bluetooth: ${phone.others?.Bluetooth}</p>
+      <p>GPS: ${phone.others?.GPS}</p>
+      <p>NFC: ${phone.others?.NFC}</p>
+      <p>Radio: ${phone.others?.Radio}</p>
+      <p>USB: ${phone.others?.USB}</p>
+      <p>WLAN: ${phone.others?.WLAN}</p>
+    </div> 
     `;
     cardDeatil.appendChild(div);
 };
