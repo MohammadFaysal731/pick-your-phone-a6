@@ -7,6 +7,8 @@ const phoneDeatil = document.getElementById('card-deatil');
 const loadPhones = () => {
     const searchBox = document.getElementById('search-box');
     const searchTex = searchBox.value;
+    // errorMasseges for many thinks like. number, nagative number, emty string , no result found.
+    const errorMasseges = document.getElementById('error-masseges');
     searchBox.value = '';
     // console.log(searchTex)
     if (searchTex === '') {
@@ -38,6 +40,8 @@ const loadPhones = () => {
 // display phones 
 const displayPhones = phones => {
     // console.log(phones)
+    // cards  cosntainer 
+    const phonesContainer = document.getElementById('cards');
     if (phones.length === 0) {
         errorMasseges.innerText = 'Sorroy no phone found';
         phonesContainer.textContent = '';
@@ -66,14 +70,16 @@ const displayPhones = phones => {
 };
 
 const loadPhoneDetais = phoneId => {
-    console.log(phoneId);
+    // console.log(phoneId);
     const url = (`https://openapi.programming-hero.com/api/phone/${phoneId}`);
     fetch(url)
         .then(res => res.json())
         .then(data => displayPhoneDetais(data.data))
 };
 const displayPhoneDetais = phone => {
-    console.log(phone)
+    // console.log(phone)
+    // singal phone details 
+    const phoneDeatil = document.getElementById('card-deatil');
     phoneDeatil.textContent = '';
     const div = document.createElement('div');
     div.innerHTML = `
@@ -95,12 +101,12 @@ const displayPhoneDetais = phone => {
       <p>${phone.mainFeatures.sensors[4]}</p>
       <p>${phone.mainFeatures.sensors[5]}</p>
       <h5>Others:</h5>
-      <p>Bluetooth: ${phone.others?.Bluetooth}</p>
-      <p>GPS: ${phone.others?.GPS}</p>
-      <p>NFC: ${phone.others?.NFC}</p>
-      <p>Radio: ${phone.others?.Radio}</p>
-      <p>USB: ${phone.others?.USB}</p>
-      <p>WLAN: ${phone.others?.WLAN}</p>
+      <p>Bluetooth: ${phone.others?.Bluetooth ? phone.others.Bluetooth : 'Other not found'}</p>
+      <p>GPS: ${phone.others?.GPS ? phone.others?.GPS : 'Other not found'}</p>
+      <p>NFC: ${phone.others?.NFC ? phone?.others?.NFC : 'Other not found'}</p>
+      <p>Radio: ${phone.others?.Radio ? phone?.others?.Radio : 'Other not found'}</p>
+      <p>USB: ${phone.others?.USB ? phone?.others?.USB : 'Other not found'}</p>
+      <p>WLAN: ${phone.others?.WLAN ? phone?.others?.WLAN : 'Other not found'}</p>
     </div> 
     `;
     phoneDeatil.appendChild(div);
